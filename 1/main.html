@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>景点介绍</title>
+    <style>
+           body {
+            background-color: rgb(182, 225, 241);
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        #spot1,
+        #spot2 {
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            margin-bottom: 20px;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        
+        video {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        .spot img {
+             width: 300px;
+             height: 200px;
+            object-fit: cover;
+             margin-bottom: 20px;
+}
+    </style>
+</head>
+<body>
+    <h1>景点介绍</h1>
+    
+    <ul>
+        <li><a href="#spot1">景点1: 肇庆鼎湖山</a></li>
+        <li><a href="#spot2">景点2: 肇庆黄花风铃生态园</a></li>
+
+        <!-- 添加其他景点的链接 -->
+    </ul>
+    
+    <div id="spot1">
+        <h2>肇庆鼎湖山</h2>
+        <h1>鼎湖山位于中华人民共和国广东省肇庆市鼎湖区，地处北回归线上，属南亚热带季风湿润型气候，面积1133公顷，山脉为西南至东北走向，西南高东北低，几乎全部为山地和丘陵，最高峰为“鸡笼山”，海拔1000.3米[1]。从山麓到山顶，自下而上分布着沟谷雨林、常绿阔林、亚热带季风常绿阔叶林等多种森林类型。被誉为华南生物种类的“基因储存库”，“绿色宝库”和“活的自然博物馆”，又因北回归线穿过的地方大都是沙漠，而鼎湖山因其终年常绿，又被誉为“北回归线上的绿宝石”</h1>
+        <img src="D:\zhanshi\1\1125px-Panoramic_Dinghu.jpg" alt="景点1图片">
+        <img src="D:\zhanshi\1\下载.jpg">
+        <img src="D:\zhanshi\1\OIP (1).jpg">
+        <img src="D:\zhanshi\1\OIP.jpg">
+        <video src="D:\zhanshi\1\WeChat_20230509204333.mp4" controls></video>
+    </div>
+    
+    <div id="spot2" class="spot">
+        <h2>肇庆黄花风铃生态园</h2>
+        <h1>黄花风铃生态园位于高要区白土镇金龙湖，数百亩黄花风铃木于每年2至3月迎风绽放，金灿灿的花海吸引许多市民以及周边游客，前往追花、看花、拍花，成为肇庆的“网红打卡地”。</h1>
+        <img src="D:\zhanshi\1\0104c120009a6c0vy3557_R_1600_10000.webp" alt="景点2图片">
+        <img src="D:\zhanshi\1\01012120009a6bzkc4E64_C_1600_1200.jpg" >
+        <img src="D:\zhanshi\1\0106t120009a6bya5A8FA_R_1600_10000.jpg">
+        <video src="D:\zhanshi\1\WeChat_20230509204812.mp4" controls></video>
+    </div>
+    <div id="comments">
+        <h2>评论区</h2>
+        <textarea id="commentInput" placeholder="在此处输入评论"></textarea>
+        <button onclick="saveComment()">提交评论</button>
+        <div id="commentList"></div>
+    </div>
+
+    <script>
+        // 保存评论
+        function saveComment() {
+            // 获取评论输入框和评论列表
+            var commentInput = document.getElementById('commentInput');
+            var commentList = document.getElementById('commentList');
+
+            // 获取当前时间
+            var currentDate = new Date();
+            var timestamp = currentDate.toLocaleString();
+
+            // 创建评论内容
+            var comment = document.createElement('div');
+            comment.innerHTML = '<p>' + commentInput.value + '</p><small>' + timestamp + '</small>';
+
+            // 将评论追加到评论列表
+            commentList.appendChild(comment);
+
+            // 清空输入框
+            commentInput.value = '';
+
+            // 将评论保存在浏览器的本地存储中
+            var comments = localStorage.getItem('comments');
+            if (comments) {
+                comments = JSON.parse(comments);
+            } else {
+                comments = [];
+            }
+
+            comments.push({
+                content: comment.innerHTML,
+                timestamp: timestamp
+            });
+
+            localStorage.setItem('comments', JSON.stringify(comments));
+        }
+
+        // 加载保存的评论
+        function loadComments() {
+            var comments = localStorage.getItem('comments');
+            if (comments) {
+                comments = JSON.parse(comments);
+
+                var commentList = document.getElementById('commentList');
+                for (var i = 0; i < comments.length; i++) {
+                    var comment = document.createElement('div');
+                    comment.innerHTML = comments[i].content;
+                    commentList.appendChild(comment);
+                }
+            }
+        }
+
+        // 页面加载完成后加载评论
+        window.onload = loadComments;
+    </script>
+    
+    <p><a href="#top">↑ 返回顶部</a></p>
+</body>
+</html> 
